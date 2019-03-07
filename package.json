@@ -1,0 +1,23 @@
+{
+  "name": "bot-skyscanner",
+  "version": "0.0.1",
+  "description": "scraping website skyscanner.com",
+  "main": "config.js",
+  "dependencies": {
+    "puppeteer": "git+https://github.com/GoogleChrome/puppeteer.git",
+    "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
+    "yargs": "latest"
+  },
+  "devDependencies": {
+    "protractor-retry": "^1.2.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "not available now"
+  },
+  "author": "Marco Pestrin",
+  "license": "ISC"
+}
