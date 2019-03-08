@@ -8,15 +8,12 @@ module.exports = function (config) {
         await this.browser.close();
     };
 
-    this.start = async function () {
+    this.start = async function (args) {
         var bot = null;
         const fs = require("fs");
         let config = this.config;
-        //let sqlite3 = require("sqlite3").verbose();
-        //let db = [];
         const puppeteer = require("puppeteer");
         const version = require("../version");
-        //const LOG = require("/logger/types");
         let check = require("./common")(bot, null, config);
         if (config.ui !== true) {
             if (!fs.existsSync("./databases")) {
@@ -26,9 +23,6 @@ module.exports = function (config) {
                 fs.mkdirSync("./logs");
             }
         }
-        
-        //db["logs"] = new sqlite3.Database(config.logdbPath);
-        //db["fdf"] = new sqlite3.Database(config.fdfdatabasePath);
         
         await check.initEmpty();
         config = check.fixConfig(config);
@@ -54,21 +48,22 @@ module.exports = function (config) {
         let userAgent = await this.browser.userAgent();
         bot.setUserAgent(userAgent.replace("Headless", ""));
         let utils = require("./common")(bot, this.browser, config);
-        let log = require("./logger/log");
         let skyscanner = require("./mode/skyscanner")(bot, config, utils);
 
+        if(args.length < 1 || args == undefined){
+            // default params:
+            args[0] = "Sydney"; //departure city
+            args[1] = "Melbourne"; //destination city
+            args[2] = true; //oneway?
+        }
+        //force from string to boolean
+        if(args[2] == "true") args[2] = true;
+        if(args[2] == "false") args[2] = false;
 
         await skyscanner.start();
 
         if (skyscanner.isOk()) {
-            /*
-                params:
-                1 - departure city
-                2 - destination city
-                3 - one-way --> true/false
-            */
-            skyscanner.setParams("Sydney","Melbourne",true);
-
+            skyscanner.setParams(args[0],args[1],args[2]);
         }
     };
 

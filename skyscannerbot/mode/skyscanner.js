@@ -2,7 +2,6 @@ const class_manager_state = require("../state").manager_state;
 
 class skyscanner extends class_manager_state {
     constructor (bot, config, utils) {
-
         super();
         this.bot = bot;
         this.config = config;
@@ -11,7 +10,6 @@ class skyscanner extends class_manager_state {
         this.STATE_EVENTS = require("../state").EVENTS;
         this.Log = require("../logger/log");
         this.log = new this.Log(this.LOG_NAME, this.config);
-
     }
 
     async openWebSite() {
@@ -23,7 +21,9 @@ class skyscanner extends class_manager_state {
         }
     }
     async setParams(cityOrigin, cityDestination, oneway) {
-        this.log.info("set params");
+        this.log.info(`City Origin: ${cityOrigin}`);
+        this.log.info(`City Destination: ${cityDestination}`);
+        this.log.info(`Oneway? ${oneway}`);
 
         // ALL SELECTOR
         var idOrigin = "#fsc-origin-search";
@@ -70,14 +70,7 @@ class skyscanner extends class_manager_state {
             this.log.error("web scraping not working! re-ispect selector page");
         }
 
-
-
-
-
-
     }
-
-    
 
     async isOk() {
         return true
