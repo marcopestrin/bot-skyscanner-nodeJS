@@ -32,14 +32,16 @@ class skyscanner extends class_manager_state {
         var buttonWholeMonth = "#depart-fsc-datepicker-popover nav ul li:nth-child(2)";
         var selectMonth = "#depart-fsc-datepicker-popover div[class^='Monthselector'] button:nth-child(5)";
         var justOneWay = "#flights-search-controls-root form label:nth-child(2) input";
+        var submitButton = "#flights-search-controls-root form button[type=\'submit\']";
         // ALL SELECTOR
 
-
         await this.bot.waitForSelector(idOrigin);
+        await this.bot.type(idOrigin, " ", {delay:100})
         await this.bot.type(idOrigin, cityOrigin, {delay:100})
         await this.utils.sleep(this.utils.randomInterval(1, 4));
 
         await this.bot.waitForSelector(idDestination);
+        await this.bot.type(idDestination, " ", {delay:100})
         await this.bot.type(idDestination, cityDestination, {delay:100})
         await this.utils.sleep(this.utils.randomInterval(1, 4));
         
@@ -70,6 +72,10 @@ class skyscanner extends class_manager_state {
             this.log.error("web scraping not working! re-ispect selector page");
         }
 
+        this.log.info("sending data and looking the flights");
+        await this.bot.waitForSelector(submitButton);
+        let iniziaRicerca = await this.bot.$(submitButton);
+        await iniziaRicerca.click();
     }
 
     async isOk() {
