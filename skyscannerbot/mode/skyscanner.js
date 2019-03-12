@@ -20,7 +20,7 @@ class skyscanner extends class_manager_state {
             this.log.error("I can't open the website: ".err);
         }
     }
-    async setParams(cityOrigin, cityDestination, oneway) {
+    async setParams(cityOrigin, cityDestination, oneway, month) {
         this.log.info(`City Origin: ${cityOrigin}`);
         this.log.info(`City Destination: ${cityDestination}`);
         this.log.info(`Oneway? ${oneway}`);
@@ -30,7 +30,7 @@ class skyscanner extends class_manager_state {
         var idDestination = "#fsc-destination-search";
         var departDateFirstStep = "button#depart-fsc-datepicker-button";
         var buttonWholeMonth = "#depart-fsc-datepicker-popover nav ul li:nth-child(2)";
-        var selectMonth = "#depart-fsc-datepicker-popover div[class^='Monthselector'] button:nth-child(5)";
+        var selectMonth = "#depart-fsc-datepicker-popover div[class^='Monthselector'] button:nth-child("+month+")";
         var justOneWay = "#flights-search-controls-root form label:nth-child(2) input";
         var submitButton = "#flights-search-controls-root form button[type=\'submit\']";
         // ALL SELECTOR

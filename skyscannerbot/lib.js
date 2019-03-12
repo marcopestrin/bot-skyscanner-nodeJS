@@ -50,20 +50,31 @@ module.exports = function (config) {
         let utils = require("./common")(bot, this.browser, config);
         let skyscanner = require("./mode/skyscanner")(bot, config, utils);
 
-        if(args.length < 1 || args == undefined){
-            // default params:
-            args[0] = "Sydney"; //departure city
-            args[1] = "Melbourne"; //destination city
-            args[2] = true; //oneway?
-        }
-        //force from string to boolean
-        if(args[2] == "true") args[2] = true;
-        if(args[2] == "false") args[2] = false;
+        /*
+            VALIDATION DATA --> START
+        */
+            var currentMonth = new Date().getMonth() +1; // for ease I want January = 1
+            if(args.length < 1 || args == undefined){
+                // default params:
+                args[0] = "Sydney"; //departure city
+                args[1] = "Melbourne"; //destination city
+                args[2] = true; //oneway?
+                args[3] = currentMonth;
+            }
+            if(args[3] > 11) args[3] = currentMonth; //you can't have an input larger than 12
+            if(args[3] < currentMonth) args[3] = currentMonth + 11; //because the first button is the current month
+
+            //force from string to boolean
+            if(args[2] == "true") args[2] = true;
+            if(args[2] == "false") args[2] = false;
+        /*
+            VALIDATION DATA --> END
+        */
 
         await skyscanner.start();
 
         if (skyscanner.isOk()) {
-            skyscanner.setParams(args[0],args[1],args[2]);
+            skyscanner.setParams(args[0],args[1],args[2],args[3]);
         }
     };
 
