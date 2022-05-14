@@ -6,10 +6,9 @@
   "dependencies": {
     "puppeteer": "git+https://github.com/GoogleChrome/puppeteer.git",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
-    "yargs": "latest"
-  },
-  "devDependencies": {
+    "yargs": "latest",
     "protractor-retry": "^1.2.6"
+
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
